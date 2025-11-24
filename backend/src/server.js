@@ -33,7 +33,7 @@ app.get('/health', (req, res) => {
 });
 
 // API routes
-app.use('/api/v1/votes', voteRoutes);
+app.use('/votes', voteRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {
