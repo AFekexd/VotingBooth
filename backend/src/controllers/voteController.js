@@ -5,9 +5,6 @@ import AppError from '../utils/AppError.js';
 export const getAllVotes = async (req, res, next) => {
     try {
         const votes = await prisma.vote.findMany({
-            include: {
-                options: true
-            },
             orderBy: {
                 createdAt: 'desc'
             }
