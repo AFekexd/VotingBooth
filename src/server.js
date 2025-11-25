@@ -4,6 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import voteRoutes from './routes/voteRoutes.js';
 import errorHandler from './middleware/errorHandler.js';
+import apiLogger from './middleware/apiLogger.js';
 
 // Load environment variables
 dotenv.config();
@@ -17,6 +18,8 @@ app.use(express.json());
 // parse application/x-www-form-urlencoded - for parsing form data
 app.use(express.urlencoded({ extended: true }));
 
+// API request logging middleware (logs all requests to database)
+app.use(apiLogger);
 
 // Logging middleware
 if (process.env.NODE_ENV === 'development') {

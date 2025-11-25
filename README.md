@@ -1,12 +1,12 @@
 # VotingBooth Backend API
 
-A RESTful backend API for anonymous voting built with Express.js, Node.js, MySQL, and Prisma. This project demonstrates CRUD operations for educational purposes.
+A RESTful backend API for anonymous voting built with Express.js, Node.js, PostgreSQL, and Prisma. This project demonstrates CRUD operations and comprehensive API logging for educational purposes.
 
 ## 🚀 Tech Stack
 
 - **Node.js** - Runtime environment
 - **Express.js** - Web framework
-- **MySQL** - Database
+- **PostgreSQL** - Database
 - **Prisma** - ORM
 - **express-validator** - Input validation
 - **CORS** - Cross-origin resource sharing
@@ -15,7 +15,7 @@ A RESTful backend API for anonymous voting built with Express.js, Node.js, MySQL
 ## 📋 Prerequisites
 
 - Node.js (v18 or higher)
-- MySQL (v8 or higher)
+- PostgreSQL (v12 or higher)
 - npm or yarn
 
 ## 🛠️ Installation
@@ -33,9 +33,9 @@ A RESTful backend API for anonymous voting built with Express.js, Node.js, MySQL
 
 3. **Configure environment variables**
    
-   Copy `.env.example` to `.env` and update with your MySQL credentials:
+   Copy `.env.example` to `.env` and update with your PostgreSQL credentials:
    ```env
-   DATABASE_URL="mysql://username:password@localhost:3306/voting_booth"
+   DATABASE_URL="postgresql://username:password@localhost:5432/voting_booth"
    PORT=3000
    NODE_ENV=development
    ```
@@ -153,6 +153,7 @@ VotingBooth/
 │   ├── controllers/
 │   │   └── voteController.js  # Vote business logic
 │   ├── middleware/
+│   │   ├── apiLogger.js       # API request logging
 │   │   ├── errorHandler.js    # Error handling
 │   │   └── validator.js       # Validation middleware
 │   ├── routes/
@@ -187,6 +188,20 @@ VotingBooth/
 - `voteCount` - Number of votes (default: 0)
 - `createdAt` - Timestamp
 
+### API Logs Table
+- `id` - Auto-increment primary key
+- `method` - HTTP method (GET, POST, etc.)
+- `path` - Request path
+- `queryParams` - Query string parameters
+- `ipAddress` - Client IP address
+- `userAgent` - Client user agent
+- `headers` - Request headers (JSON)
+- `requestBody` - Request payload (JSON)
+- `responseStatus` - HTTP response status code
+- `responseBody` - Response payload (JSON)
+- `responseTime` - Response time in milliseconds
+- `createdAt` - Timestamp
+
 ## 🔧 Available Scripts
 
 - `npm run dev` - Start development server with auto-reload
@@ -206,6 +221,30 @@ VotingBooth/
 - ✅ CORS support
 - ✅ Request logging
 - ✅ Active/inactive vote status
+- ✅ **Comprehensive API logging** - All requests logged to database with IP addresses, request/response data
+
+## 🔒 API Logging & Privacy
+
+This application logs **all API requests** to the database, including:
+- IP addresses
+- Request and response bodies
+- User agents and headers
+- Response times
+
+**Privacy Considerations:**
+- Logs include sensitive data such as vote choices and IP addresses
+- Implement log retention policies as needed
+- Ensure compliance with privacy regulations (GDPR, etc.)
+- Consider anonymizing or purging old logs regularly
+
+To view API logs, use Prisma Studio:
+```bash
+npm run prisma:studio
+```
+
+## 🔄 Migrating from MySQL
+
+If you're migrating from a previous MySQL version of this project, see [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) for detailed instructions.
 
 ## 🎓 Educational Purpose
 
@@ -216,7 +255,8 @@ This project is designed for learning:
 - Express.js middleware
 - Input validation
 - Error handling patterns
-- MySQL integration
+- PostgreSQL integration
+- API request logging and monitoring
 
 ## 📄 License
 
